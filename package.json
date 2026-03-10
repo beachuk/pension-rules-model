@@ -1,0 +1,21 @@
+{
+  "name": "pension-rules-model",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "validate": "tsx src/cli.ts validate",
+    "visualise": "tsx src/generate-visualiser.ts",
+    "test-csv": "tsx src/test-csv.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@types/node": "^25.4.0",
+    "json-rules-engine": "^7.3.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

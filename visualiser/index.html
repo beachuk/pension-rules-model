@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIPP TransferIn Rules — Debug</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #e2e8f0; padding: 24px; }
+  h1 { font-size: 24px; margin-bottom: 8px; color: #f1f5f9; }
+  h2 { font-size: 18px; margin: 32px 0 16px; color: #94a3b8; border-bottom: 1px solid #334155; padding-bottom: 8px; }
+  .subtitle { color: #64748b; margin-bottom: 24px; }
+  .stats { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .stat-card { background: #1e293b; border-radius: 8px; padding: 16px 24px; flex: 1; min-width: 150px; }
+  .stat-value { font-size: 32px; font-weight: 700; color: #f1f5f9; }
+  .stat-label { font-size: 13px; color: #64748b; margin-top: 4px; }
+  .filters { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .filter-btn { padding: 6px 14px; border-radius: 16px; border: 1px solid #334155; background: #1e293b; color: #94a3b8; cursor: pointer; font-size: 13px; transition: all 0.15s; }
+  .filter-btn:hover { border-color: #64748b; }
+  .filter-btn.active { background: var(--btn-colour); color: #fff; border-color: var(--btn-colour); }
+  .rules-grid { display: flex; flex-direction: column; gap: 12px; }
+  .rule-card { background: #1e293b; border-radius: 8px; padding: 16px; transition: opacity 0.2s; }
+  .rule-card.dimmed { opacity: 0.2; }
+  .rule-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+  .rule-name { font-weight: 600; font-size: 15px; color: #f1f5f9; }
+  .rule-priority { font-size: 12px; color: #64748b; background: #334155; padding: 2px 8px; border-radius: 8px; }
+  .rule-status { font-size: 12px; color: #fff; padding: 2px 10px; border-radius: 8px; margin-left: auto; }
+  .rule-description { font-size: 13px; color: #94a3b8; margin-bottom: 10px; }
+  .conditions-block { background: #0f172a; border-radius: 6px; padding: 10px 14px; }
+  .conditions-label { font-size: 11px; color: #64748b; text-transform: uppercase; margin-bottom: 6px; }
+  .condition { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 13px; color: #cbd5e1; padding: 2px 0; }
+  .flow-container { position: relative; padding: 20px 0; }
+  .flow-node { display: flex; align-items: stretch; margin-bottom: 8px; position: relative; }
+  .flow-connector { width: 40px; display: flex; flex-direction: column; align-items: center; position: relative; }
+  .flow-connector::before { content: ''; position: absolute; top: 0; bottom: 0; width: 2px; background: #334155; }
+  .flow-dot { width: 14px; height: 14px; border-radius: 50%; z-index: 1; margin-top: 18px; border: 2px solid #0f172a; }
+  .flow-body { flex: 1; background: #1e293b; border-radius: 8px; padding: 12px 16px; margin-left: 8px; }
+  .flow-body .rule-name { font-size: 14px; }
+  .flow-arrow { color: #475569; font-size: 11px; margin-top: 4px; display: block; }
+  .flow-node:last-child .flow-connector::before { height: 50%; }
+  table { width: 100%; border-collapse: collapse; background: #1e293b; border-radius: 8px; overflow: hidden; }
+  th { text-align: left; padding: 10px 14px; background: #334155; color: #94a3b8; font-size: 12px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #1e293b; font-size: 14px; }
+  .status-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; }
+  .bar { height: 18px; border-radius: 3px; min-width: 2px; }
+  .issue { padding: 12px 16px; border-radius: 8px; margin-bottom: 8px; font-size: 13px; line-height: 1.5; }
+  .issue-type { font-weight: 700; font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-right: 8px; }
+  .issue-conflict { background: #451a03; border: 1px solid #92400e; }
+  .issue-conflict .issue-type { background: #f59e0b; color: #000; }
+  .issue-blind-spot { background: #450a0a; border: 1px solid #991b1b; }
+  .issue-blind-spot .issue-type { background: #ef4444; color: #fff; }
+  .issue-warning { background: #172554; border: 1px solid #1e40af; }
+  .issue-warning .issue-type { background: #3b82f6; color: #fff; }
+  .no-issues { background: #052e16; border: 1px solid #166534; padding: 16px; border-radius: 8px; color: #4ade80; }
+  .conflict-detail, .unclassified-detail { background: #1e293b; padding: 10px 14px; border-radius: 6px; margin-bottom: 6px; font-size: 13px; }
+  .conflict-detail code, .unclassified-detail code { font-size: 12px; color: #94a3b8; word-break: break-all; }
+  .match-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; color: #fff; font-size: 11px; margin: 2px; }
+  .tabs { display: flex; gap: 0; margin-bottom: 0; }
+  .tab { padding: 10px 20px; background: #1e293b; color: #64748b; cursor: pointer; border: 1px solid #334155; border-bottom: none; border-radius: 8px 8px 0 0; font-size: 14px; }
+  .tab.active { background: #334155; color: #f1f5f9; }
+  .tab-content { display: none; background: #1e293b0a; border: 1px solid #334155; border-radius: 0 8px 8px 8px; padding: 20px; }
+  .tab-content.active { display: block; }
+</style>
+</head>
+<body>
+  <h1>SIPP TransferIn Rules — Debug</h1>
+  <p class="subtitle">Generated 2026-03-10T11:54 &mdash; 9 rules, 9 statuses</p>
+
+  <div class="stats">
+    <div class="stat-card"><div class="stat-value">9</div><div class="stat-label">Rules defined</div></div>
+    <div class="stat-card"><div class="stat-value">9</div><div class="stat-label">Display statuses</div></div>
+    <div class="stat-card"><div class="stat-value">12</div><div class="stat-label">Test cases generated</div></div>
+    <div class="stat-card"><div class="stat-value" style="color: #f59e0b">11</div><div class="stat-label">Conflicts</div></div>
+    <div class="stat-card"><div class="stat-value" style="color: #4ade80">0</div><div class="stat-label">Blind spots</div></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('flow')">Priority Flow</div>
+    <div class="tab" onclick="switchTab('rules')">Rule Cards</div>
+    <div class="tab" onclick="switchTab('coverage')">Coverage</div>
+    <div class="tab" onclick="switchTab('issues')">Issues (11)</div>
+  </div>
+
+  <div class="tab-content active" id="tab-flow">
+    <p style="color:#64748b;margin-bottom:16px;font-size:13px">Rules evaluated top-to-bottom by priority. First match wins.</p>
+    <div class="flow-container">
+      
+        <div class="flow-node">
+          <div class="flow-connector">
+            <div class="flow-dot" style="background:#9ca3af"></div>
+          </div>
+          <div class="flow-body" style="border-left:3px solid #9ca3af">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+              <span class="rule-name">hidden-closed</span>
+              <span class="rule-status" style="background:#9ca3af">Hidden</span>
+            </div>
+            <div style="margin-top:6px;font-family:monospace;font-size:12px;color:#94a3b8">
+              closed = true
+            </div>
+            <span class="flow-arrow">&#8595; no match? continue...</span>
+          </div>
+        </div>
+
+        <div class="flow-node">
+          <div class="flow-connector">
+            <div class="flow-dot" style="background:#f87171"></div>
+          </div>
+          <div class="flow-body" style="border-left:3px solid #f87171">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+              <span class="rule-name">client-cancelled</span>
+              <span class="rule-status" style="background:#f87171">Client cancelled</span>
+            </div>
+            <div style="margin-top:6px;font-family:monospace;font-size:12px;color:#94a3b8">
+              status = &quot;Cancelled&quot; <span style="color:#475569">&amp;&amp;</span> closed = false
+            </div>
+            <span class="flow-arrow">&#8595; no match? continue...</span>
+          </div>
+        </div>
+
+        <div class="flow-node">
+          <div class="flow-connector">
+            <div class="flow-dot" style="background:#a78bfa"></div>
+          </div>
+          <div class="flow-body" style="border-left:3px solid #a78bfa">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+              <span class="rule-name">current-work</span>
+              <span class="rule-status" style="background:#a78bfa">Current work</span>
+            </div>
+            <div style="margin-top:6px;font-family:monospace;font-size:12px;color:#94a3b8">
+              status = &quot;ExistingEmployer&quot;
+            </div>
+            <span class="flow-arrow">&#8595; no match? continue...</span>
+          </div>
+        </div>
+
+        <div class="flow-node">
+          <div class="flow-connector">
+            <div class="flow-dot" style="background:#34d399"></div>
+          </div>
+          <div class="flow-body" style="border-left:3px solid #34d399">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+              <span class="rule-name">completed</span>
+              <span class="rule-status" style="background:#34d399">Completed</span>
+            </div>
+            <div style="margin-top:6px;font-family:monospace;font-size:12px;color:#94a3b8">
+              status = &quot;Completed&quot;
+            </div>
+            <span class="flow-arrow">&#8595; no match? continue...</span>
+          </div>
+        </div>
+
+        <div class="flow-node">
+          <div class="flow-connector">
+            <div class="flow-dot" style="background:#60a5fa"></div>
+          </div>
+          <div class="flow-body" style="border-left:3px solid #60a5fa">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+              <span class="rule-name">transferring</span>
+              <span class="rule-status" style="background:#60a5fa">Transferring</span>
+            </div>
+            <div style="margin-top:6px;font-family:monospace;font-size:12px;color:#94a3b8">
+              status = &quot;Submitted&quot;
+            </div>
+            <span class="flow-arrow">&#8595; no match? continue...</span>
+          </div>
+        </div>
+
+        <div class="flow-node">
+          <div class="flow-connector">
+            <div class="flow-dot" style="background:#34d399"></div>
+          </div>
+          <div class="flow-body" style="border-left:3px solid #34d399">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+              <span class="rule-name">found</span>
+              <span class="rule-status" style="background:#34d399">Found</span>
+            </div>
+            <div style="margin-top:6px;font-family:monospace;font-size:12px;color:#94a3b8">
+              cedingAccountReference != null <span style="color:#475569">&amp;&amp;</span> status = &quot;NotRequested&quot; <span style="color:#475569">&amp;&amp;</span> ANY of: <span style="color:#475569">&amp;&amp;</span>   cedingProviderName != null <span style="color:#475569">&amp;&amp;</span>   cedingProviderId != null
+            </div>
+            <span class="flow-arrow">&#8595; no match? continue...</span>
+          </div>
+        </div>
+
+        <div class="flow-node">
+          <div class="flow-connector">
+            <div class="flow-dot" style="background:#fbbf24"></div>
+          </div>
+          <div class="flow-body" style="border-left:3px solid #fbbf24">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+              <span class="rule-name">potentially-found</span>
+              <span class="rule-status" style="background:#fbbf24">Potentially found</span>
+            </div>
+            <div style="margin-top:6px;font-family:monospace;font-size:12px;color:#94a3b8">
+              employerName != null <span style="color:#475569">&amp;&amp;</span> cedingProviderName = null <span style="color:#475569">&amp;&amp;</span> cedingProviderId = null <span style="color:#475569">&amp;&amp;</span> status = &quot;NotRequested&quot;
+            </div>
+            <span class="flow-arrow">&#8595; no match? continue...</span>
+          </div>
+        </div>
+
+        <div class="flow-node">
+          <div class="flow-connector">
+            <div class="flow-dot" style="background:#f87171"></div>
+          </div>
+          <div class="flow-body" style="border-left:3px solid #f87171">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+              <span class="rule-name">not-found</span>
+              <span class="rule-status" style="background:#f87171">Not found</span>
+            </div>
+            <div style="margin-top:6px;font-family:monospace;font-size:12px;color:#94a3b8">
+              status = &quot;NotFound&quot;
+            </div>
+            <span class="flow-arrow">&#8595; no match? continue...</span>
+          </div>
+        </div>
+
+        <div class="flow-node">
+          <div class="flow-connector">
+            <div class="flow-dot" style="background:#FF6B35"></div>
+          </div>
+          <div class="flow-body" style="border-left:3px solid #FF6B35">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+              <span class="rule-name">searching-default</span>
+              <span class="rule-status" style="background:#FF6B35">Searching</span>
+            </div>
+            <div style="margin-top:6px;font-family:monospace;font-size:12px;color:#94a3b8">
+              id &gt; 0
+            </div>
+            <span class="flow-arrow" style="color:#ef4444">&#8623; UNCLASSIFIED if no match</span>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="tab-content" id="tab-rules">
+    <div class="filters">
+      <button class="filter-btn active" style="--btn-colour:#64748b" onclick="filterRules('all')">All</button>
+      <button class="filter-btn" style="--btn-colour:#FF6B35" onclick="filterRules('Searching')">Searching</button>
+<button class="filter-btn" style="--btn-colour:#fbbf24" onclick="filterRules('Potentially found')">Potentially found</button>
+<button class="filter-btn" style="--btn-colour:#34d399" onclick="filterRules('Found')">Found</button>
+<button class="filter-btn" style="--btn-colour:#60a5fa" onclick="filterRules('Transferring')">Transferring</button>
+<button class="filter-btn" style="--btn-colour:#34d399" onclick="filterRules('Completed')">Completed</button>
+<button class="filter-btn" style="--btn-colour:#a78bfa" onclick="filterRules('Current work')">Current work</button>
+<button class="filter-btn" style="--btn-colour:#f87171" onclick="filterRules('Not found')">Not found</button>
+<button class="filter-btn" style="--btn-colour:#f87171" onclick="filterRules('Client cancelled')">Client cancelled</button>
+<button class="filter-btn" style="--btn-colour:#9ca3af" onclick="filterRules('Hidden')">Hidden</button>
+    </div>
+    <div class="rules-grid">
+      <div class="rule-card" data-status="Hidden" style="border-left: 5px solid #9ca3af">
+        <div class="rule-header">
+          <span class="rule-name">hidden-closed</span>
+          <span class="rule-priority">Priority: 100</span>
+          <span class="rule-status" style="background: #9ca3af">Hidden</span>
+        </div>
+        <div class="rule-description">Transfer is closed - hidden from clients</div>
+        <div class="conditions-block">
+          <div class="conditions-label">ALL conditions:</div>
+          <div class="condition">closed = true</div>
+        </div>
+      </div>
+
+      <div class="rule-card" data-status="Client cancelled" style="border-left: 5px solid #f87171">
+        <div class="rule-header">
+          <span class="rule-name">client-cancelled</span>
+          <span class="rule-priority">Priority: 50</span>
+          <span class="rule-status" style="background: #f87171">Client cancelled</span>
+        </div>
+        <div class="rule-description">Client has cancelled the transfer and it is not yet closed</div>
+        <div class="conditions-block">
+          <div class="conditions-label">ALL conditions:</div>
+          <div class="condition">status = &quot;Cancelled&quot;</div><div class="condition">closed = false</div>
+        </div>
+      </div>
+
+      <div class="rule-card" data-status="Current work" style="border-left: 5px solid #a78bfa">
+        <div class="rule-header">
+          <span class="rule-name">current-work</span>
+          <span class="rule-priority">Priority: 40</span>
+          <span class="rule-status" style="background: #a78bfa">Current work</span>
+        </div>
+        <div class="rule-description">Pension is with current employer and not yet submitted or completed</div>
+        <div class="conditions-block">
+          <div class="conditions-label">ALL conditions:</div>
+          <div class="condition">status = &quot;ExistingEmployer&quot;</div>
+        </div>
+      </div>
+
+      <div class="rule-card" data-status="Completed" style="border-left: 5px solid #34d399">
+        <div class="rule-header">
+          <span class="rule-name">completed</span>
+          <span class="rule-priority">Priority: 35</span>
+          <span class="rule-status" style="background: #34d399">Completed</span>
+        </div>
+        <div class="rule-description">Transfer has completed</div>
+        <div class="conditions-block">
+          <div class="conditions-label">ALL conditions:</div>
+          <div class="condition">status = &quot;Completed&quot;</div>
+        </div>
+      </div>
+
+      <div class="rule-card" data-status="Transferring" style="border-left: 5px solid #60a5fa">
+        <div class="rule-header">
+          <span class="rule-name">transferring</span>
+          <span class="rule-priority">Priority: 30</span>
+          <span class="rule-status" style="background: #60a5fa">Transferring</span>
+        </div>
+        <div class="rule-description">Transfer has been submitted to the provider</div>
+        <div class="conditions-block">
+          <div class="conditions-label">ALL conditions:</div>
+          <div class="condition">status = &quot;Submitted&quot;</div>
+        </div>
+      </div>
+
+      <div class="rule-card" data-status="Found" style="border-left: 5px solid #34d399">
+        <div class="rule-header">
+          <span class="rule-name">found</span>
+          <span class="rule-priority">Priority: 25</span>
+          <span class="rule-status" style="background: #34d399">Found</span>
+        </div>
+        <div class="rule-description">Provider identified (name or ID), policy number known, and status is NotRequested</div>
+        <div class="conditions-block">
+          <div class="conditions-label">ALL conditions:</div>
+          <div class="condition">cedingAccountReference != null</div><div class="condition">status = &quot;NotRequested&quot;</div><div class="condition">ANY of:</div><div class="condition">  cedingProviderName != null</div><div class="condition">  cedingProviderId != null</div>
+        </div>
+      </div>
+
+      <div class="rule-card" data-status="Potentially found" style="border-left: 5px solid #fbbf24">
+        <div class="rule-header">
+          <span class="rule-name">potentially-found</span>
+          <span class="rule-priority">Priority: 20</span>
+          <span class="rule-status" style="background: #fbbf24">Potentially found</span>
+        </div>
+        <div class="rule-description">Has employer name but no provider identified yet, and status is NotRequested</div>
+        <div class="conditions-block">
+          <div class="conditions-label">ALL conditions:</div>
+          <div class="condition">employerName != null</div><div class="condition">cedingProviderName = null</div><div class="condition">cedingProviderId = null</div><div class="condition">status = &quot;NotRequested&quot;</div>
+        </div>
+      </div>
+
+      <div class="rule-card" data-status="Not found" style="border-left: 5px solid #f87171">
+        <div class="rule-header">
+          <span class="rule-name">not-found</span>
+          <span class="rule-priority">Priority: 15</span>
+          <span class="rule-status" style="background: #f87171">Not found</span>
+        </div>
+        <div class="rule-description">Pension search completed but not found</div>
+        <div class="conditions-block">
+          <div class="conditions-label">ALL conditions:</div>
+          <div class="condition">status = &quot;NotFound&quot;</div>
+        </div>
+      </div>
+
+      <div class="rule-card" data-status="Searching" style="border-left: 5px solid #FF6B35">
+        <div class="rule-header">
+          <span class="rule-name">searching-default</span>
+          <span class="rule-priority">Priority: 1</span>
+          <span class="rule-status" style="background: #FF6B35">Searching</span>
+        </div>
+        <div class="rule-description">Default state - if no other rule matches, the transfer is still being searched for</div>
+        <div class="conditions-block">
+          <div class="conditions-label">ALL conditions:</div>
+          <div class="condition">id &gt; 0</div>
+        </div>
+      </div></div>
+  </div>
+
+  <div class="tab-content" id="tab-coverage">
+    <table>
+      <thead><tr><th>Status</th><th>Count</th><th>%</th><th>Distribution</th></tr></thead>
+      <tbody><tr>
+        <td><span class="status-dot" style="background:#FF6B35"></span>Searching</td>
+        <td>1</td>
+        <td>8.3%</td>
+        <td><div class="bar" style="width:8.3%;background:#FF6B35"></div></td>
+      </tr>
+<tr>
+        <td><span class="status-dot" style="background:#fbbf24"></span>Potentially found</td>
+        <td>0</td>
+        <td>0.0%</td>
+        <td><div class="bar" style="width:0.0%;background:#fbbf24"></div></td>
+      </tr>
+<tr>
+        <td><span class="status-dot" style="background:#34d399"></span>Found</td>
+        <td>0</td>
+        <td>0.0%</td>
+        <td><div class="bar" style="width:0.0%;background:#34d399"></div></td>
+      </tr>
+<tr>
+        <td><span class="status-dot" style="background:#60a5fa"></span>Transferring</td>
+        <td>1</td>
+        <td>8.3%</td>
+        <td><div class="bar" style="width:8.3%;background:#60a5fa"></div></td>
+      </tr>
+<tr>
+        <td><span class="status-dot" style="background:#34d399"></span>Completed</td>
+        <td>1</td>
+        <td>8.3%</td>
+        <td><div class="bar" style="width:8.3%;background:#34d399"></div></td>
+      </tr>
+<tr>
+        <td><span class="status-dot" style="background:#a78bfa"></span>Current work</td>
+        <td>1</td>
+        <td>8.3%</td>
+        <td><div class="bar" style="width:8.3%;background:#a78bfa"></div></td>
+      </tr>
+<tr>
+        <td><span class="status-dot" style="background:#f87171"></span>Not found</td>
+        <td>1</td>
+        <td>8.3%</td>
+        <td><div class="bar" style="width:8.3%;background:#f87171"></div></td>
+      </tr>
+<tr>
+        <td><span class="status-dot" style="background:#f87171"></span>Client cancelled</td>
+        <td>1</td>
+        <td>8.3%</td>
+        <td><div class="bar" style="width:8.3%;background:#f87171"></div></td>
+      </tr>
+<tr>
+        <td><span class="status-dot" style="background:#9ca3af"></span>Hidden</td>
+        <td>6</td>
+        <td>50.0%</td>
+        <td><div class="bar" style="width:50.0%;background:#9ca3af"></div></td>
+      </tr>
+<tr>
+        <td><span class="status-dot" style="background:#dc2626"></span>UNCLASSIFIED</td>
+        <td>0</td>
+        <td>0.0%</td>
+        <td><div class="bar" style="width:0.0%;background:#dc2626"></div></td>
+      </tr></tbody>
+    </table>
+  </div>
+
+  <div class="tab-content" id="tab-issues">
+    <div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:true,&quot;id&quot;:1}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;ExistingEmployer&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:true,&quot;id&quot;:3}. Matches: Hidden (hidden-closed, p=100), Current work (current-work, p=40), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;ExistingEmployer&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:false,&quot;id&quot;:4}. Matches: Current work (current-work, p=40), Searching (searching-default, p=1). Winner by priority: Current work</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;NotFound&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:true,&quot;id&quot;:5}. Matches: Hidden (hidden-closed, p=100), Not found (not-found, p=15), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;NotFound&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:false,&quot;id&quot;:6}. Matches: Not found (not-found, p=15), Searching (searching-default, p=1). Winner by priority: Not found</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:true,&quot;id&quot;:7}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:false,&quot;id&quot;:8}. Matches: Client cancelled (client-cancelled, p=50), Searching (searching-default, p=1). Winner by priority: Client cancelled</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;Completed&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:true,&quot;id&quot;:9}. Matches: Hidden (hidden-closed, p=100), Completed (completed, p=35), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;Completed&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:false,&quot;id&quot;:10}. Matches: Completed (completed, p=35), Searching (searching-default, p=1). Winner by priority: Completed</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;Submitted&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:true,&quot;id&quot;:11}. Matches: Hidden (hidden-closed, p=100), Transferring (transferring, p=30), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;Submitted&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:false,&quot;id&quot;:12}. Matches: Transferring (transferring, p=30), Searching (searching-default, p=1). Winner by priority: Transferring</div>
+    <h2>Conflict Details</h2><div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:true,&quot;id&quot;:1}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;ExistingEmployer&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:true,&quot;id&quot;:3}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#a78bfa">Current work (current-work, p=40)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;ExistingEmployer&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:false,&quot;id&quot;:4}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#a78bfa">Current work (current-work, p=40)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;NotFound&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:true,&quot;id&quot;:5}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#f87171">Not found (not-found, p=15)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;NotFound&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:false,&quot;id&quot;:6}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#f87171">Not found (not-found, p=15)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:true,&quot;id&quot;:7}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:false,&quot;id&quot;:8}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#f87171">Client cancelled (client-cancelled, p=50)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;Completed&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:true,&quot;id&quot;:9}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#34d399">Completed (completed, p=35)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;Completed&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:false,&quot;id&quot;:10}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#34d399">Completed (completed, p=35)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;Submitted&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:true,&quot;id&quot;:11}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#60a5fa">Transferring (transferring, p=30)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;status&quot;:&quot;Submitted&quot;,&quot;cedingAccountReference&quot;:null,&quot;closed&quot;:false,&quot;id&quot;:12}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#60a5fa">Transferring (transferring, p=30)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+    
+  </div>
+
+  <script>
+    function switchTab(name) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('tab-' + name).classList.add('active');
+    }
+    function filterRules(status) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      document.querySelectorAll('.rule-card').forEach(card => {
+        if (status === 'all' || card.dataset.status === status) {
+          card.classList.remove('dimmed');
+        } else {
+          card.classList.add('dimmed');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
