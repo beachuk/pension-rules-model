@@ -81,6 +81,7 @@ function conditionToFriendly(cond: RuleCondition): string {
     cedingProviderName: 'providerName',
     cedingProviderId: 'providerId',
     cedingAccountReference: 'policyNumber',
+    hasIncompleteActions: 'has incomplete actions',
     cancellationRequested: 'cancellationRequested',
   };
   const name = friendlyNames[cond.fact as string] ?? cond.fact;

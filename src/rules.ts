@@ -15,13 +15,16 @@ export const transferInRules: RuleDefinition[] = [
     name: 'potentially-found',
     displayStatus: 'Potentially found',
     priority: 20,
-    description: 'Has employer name but no provider identified yet, and status is NotRequested',
+    description: 'Has some identifying info (employer, provider name, or provider ID), at least one incomplete action, and no account reference yet',
     conditions: {
-      all: [
+      any: [
         { fact: 'employerName', operator: 'notEqual', value: null },
-        { fact: 'cedingProviderName', operator: 'equal', value: null },
-        { fact: 'cedingProviderId', operator: 'equal', value: null },
-        { fact: 'status', operator: 'equal', value: 'NotRequested' },
+        { fact: 'cedingProviderName', operator: 'notEqual', value: null },
+        { fact: 'cedingProviderId', operator: 'notEqual', value: null },
+      ],
+      all: [
+        { fact: 'hasIncompleteActions', operator: 'equal', value: true },
+        { fact: 'cedingAccountReference', operator: 'equal', value: null },
       ],
     },
   },
@@ -38,6 +41,7 @@ export const transferInRules: RuleDefinition[] = [
       ],
       all: [
         { fact: 'cedingAccountReference', operator: 'notEqual', value: null },
+        { fact: 'estimatedTransferValue', operator: 'notEqual', value: null },
         { fact: 'status', operator: 'equal', value: 'NotRequested' },
       ],
     },

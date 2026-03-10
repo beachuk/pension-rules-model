@@ -280,7 +280,7 @@
             <span class="flow-priority">Priority 25</span>
           </div>
           <div class="flow-description">Provider identified (name or ID), policy number known, and status is NotRequested</div>
-          <div class="flow-conditions"><div class="condition-group"><span class="group-label">Any of</span><div class="group-pills"><span class="condition-pill">providerName set</span><span class="condition-join">or</span><span class="condition-pill">providerId set</span></div></div><span class="condition-join group-join">and</span><div class="condition-group"><span class="group-label">All of</span><div class="group-pills"><span class="condition-pill">policyNumber set</span><span class="condition-join">and</span><span class="condition-pill">status = &quot;NotRequested&quot;</span></div></div></div>
+          <div class="flow-conditions"><div class="condition-group"><span class="group-label">Any of</span><div class="group-pills"><span class="condition-pill">providerName set</span><span class="condition-join">or</span><span class="condition-pill">providerId set</span></div></div><span class="condition-join group-join">and</span><div class="condition-group"><span class="group-label">All of</span><div class="group-pills"><span class="condition-pill">policyNumber set</span><span class="condition-join">and</span><span class="condition-pill">estimatedTransferValue set</span><span class="condition-join">and</span><span class="condition-pill">status = &quot;NotRequested&quot;</span></div></div></div>
         </div>
       </div>
       <div class="flow-arrow">
@@ -297,8 +297,8 @@
             <span class="flow-status-name">Potentially found</span>
             <span class="flow-priority">Priority 20</span>
           </div>
-          <div class="flow-description">Has employer name but no provider identified yet, and status is NotRequested</div>
-          <div class="flow-conditions"><span class="condition-pill">employerName set</span><span class="condition-join">and</span><span class="condition-pill">providerName not set</span><span class="condition-join">and</span><span class="condition-pill">providerId not set</span><span class="condition-join">and</span><span class="condition-pill">status = &quot;NotRequested&quot;</span></div>
+          <div class="flow-description">Has some identifying info (employer, provider name, or provider ID), at least one incomplete action, and no account reference yet</div>
+          <div class="flow-conditions"><div class="condition-group"><span class="group-label">Any of</span><div class="group-pills"><span class="condition-pill">employerName set</span><span class="condition-join">or</span><span class="condition-pill">providerName set</span><span class="condition-join">or</span><span class="condition-pill">providerId set</span></div></div><span class="condition-join group-join">and</span><div class="condition-group"><span class="group-label">All of</span><div class="group-pills"><span class="condition-pill">has incomplete actions = true</span><span class="condition-join">and</span><span class="condition-pill">policyNumber not set</span></div></div></div>
         </div>
       </div>
       <div class="flow-arrow">
@@ -341,7 +341,7 @@
     </div>
   </div>
   <div class="footer">
-    Pension Transfer Status Rules &middot; Generated 2026-03-10T11:54 &middot; 9 rules
+    Pension Transfer Status Rules &middot; Generated 2026-03-10T13:17 &middot; 9 rules
   </div>
 </body>
 </html>

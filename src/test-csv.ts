@@ -56,6 +56,7 @@ function csvRowToFact(row: Record<string, string>): TransferInFact {
     cedingProviderName: toNullableString(row['cedingProviderName']),
     cedingAccountReference: toNullableString(row['cedingAccountReference']),
     employerName: toNullableString(row['employerName']),
+    hasIncompleteActions: toBool(row['hasIncompleteActions']),
     hasAddress: toNullableString(row['hasAddress']),
     pollId: toNullableNumber(row['pollId']),
     pollCompletedAt: toNullableString(row['pollCompletedAt']),

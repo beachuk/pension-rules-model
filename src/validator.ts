@@ -142,6 +142,7 @@ export async function validateRules(
       cedingProviderName: testCase.cedingProviderName ?? null,
       cedingAccountReference: testCase.cedingAccountReference ?? null,
       employerName: testCase.employerName ?? null,
+      hasIncompleteActions: testCase.hasIncompleteActions ?? false,
       hasAddress: testCase.hasAddress ?? null,
       pollId: testCase.pollId ?? null,
       pollCompletedAt: testCase.pollCompletedAt ?? null,

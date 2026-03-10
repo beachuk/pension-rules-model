@@ -30,6 +30,7 @@ export interface TransferInFact {
   cedingProviderName: string | null;
   cedingAccountReference: string | null;
   employerName: string | null;
+  hasIncompleteActions: boolean; // derived: any Action where completed is null
   hasAddress: string | null;
   pollId: number | null;
   pollCompletedAt: string | null; // flattened from TransferInPoll
