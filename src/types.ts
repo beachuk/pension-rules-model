@@ -6,8 +6,9 @@ export const DISPLAY_STATUSES = [
   'Transferring',
   'Completed',
   'Current work',
+  'Defined Benefit',
   'Not found',
-  'Client cancelled',
+  'Cancelled',
   'Hidden',
 ] as const;
 
@@ -53,11 +54,15 @@ export interface RuleConditionGroup {
   any?: RuleCondition[];
 }
 
-export interface RuleCondition {
-  fact: keyof TransferInFact;
-  operator: string;
-  value: unknown;
-  // For nested groups
-  all?: RuleCondition[];
-  any?: RuleCondition[];
-}
+export type RuleCondition =
+  | {
+      fact: keyof TransferInFact;
+      operator: string;
+      value: unknown;
+      all?: RuleCondition[];
+      any?: RuleCondition[];
+    }
+  | {
+      all?: RuleCondition[];
+      any?: RuleCondition[];
+    };
