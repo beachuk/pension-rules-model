@@ -97,6 +97,19 @@ export const transferInRules: RuleDefinition[] = [
     },
   },
   {
+    name: 'not-transferring',
+    displayStatus: 'Not transferring',
+    priority: 110,
+    description:
+      'Beach-owned: pension was found but the client has decided not to transfer it. Wins over WK terminal statuses but not over closed.',
+    conditions: {
+      all: [
+        { fact: 'trackerStatus', operator: 'equal', value: 'NotTransferring' },
+        { fact: 'closed', operator: 'equal', value: false },
+      ],
+    },
+  },
+  {
     name: 'hidden-closed',
     displayStatus: 'Hidden',
     priority: 100,

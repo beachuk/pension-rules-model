@@ -64,13 +64,13 @@
 </head>
 <body>
   <h1>SIPP TransferIn Rules — Debug</h1>
-  <p class="subtitle">Generated 2026-03-10T13:17 &mdash; 9 rules, 9 statuses</p>
+  <p class="subtitle">Generated 2026-05-11T14:39 &mdash; 12 rules, 11 statuses</p>
 
   <div class="stats">
-    <div class="stat-card"><div class="stat-value">9</div><div class="stat-label">Rules defined</div></div>
-    <div class="stat-card"><div class="stat-value">9</div><div class="stat-label">Display statuses</div></div>
-    <div class="stat-card"><div class="stat-value">12</div><div class="stat-label">Test cases generated</div></div>
-    <div class="stat-card"><div class="stat-value" style="color: #f59e0b">11</div><div class="stat-label">Conflicts</div></div>
+    <div class="stat-card"><div class="stat-value">12</div><div class="stat-label">Rules defined</div></div>
+    <div class="stat-card"><div class="stat-value">11</div><div class="stat-label">Display statuses</div></div>
+    <div class="stat-card"><div class="stat-value">64</div><div class="stat-label">Test cases generated</div></div>
+    <div class="stat-card"><div class="stat-value" style="color: #f59e0b">64</div><div class="stat-label">Conflicts</div></div>
     <div class="stat-card"><div class="stat-value" style="color: #4ade80">0</div><div class="stat-label">Blind spots</div></div>
   </div>
 
@@ -78,13 +78,77 @@
     <div class="tab active" onclick="switchTab('flow')">Priority Flow</div>
     <div class="tab" onclick="switchTab('rules')">Rule Cards</div>
     <div class="tab" onclick="switchTab('coverage')">Coverage</div>
-    <div class="tab" onclick="switchTab('issues')">Issues (11)</div>
+    <div class="tab" onclick="switchTab('issues')">Issues (64)</div>
   </div>
 
   <div class="tab-content active" id="tab-flow">
     <p style="color:#64748b;margin-bottom:16px;font-size:13px">Rules evaluated top-to-bottom by priority. First match wins.</p>
     <div class="flow-container">
       
+        <div class="flow-node">
+          <div class="flow-connector">
+            <div class="flow-dot" style="background:#a78bfa"></div>
+          </div>
+          <div class="flow-body" style="border-left:3px solid #a78bfa">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+              <span class="rule-name">current-work</span>
+              <span class="rule-status" style="background:#a78bfa">Current work</span>
+            </div>
+            <div style="margin-top:6px;font-family:monospace;font-size:12px;color:#94a3b8">
+              trackerStatus = &quot;CurrentEmployerPension&quot; <span style="color:#475569">&amp;&amp;</span> closed = false
+            </div>
+            <span class="flow-arrow">&#8595; no match? continue...</span>
+          </div>
+        </div>
+
+        <div class="flow-node">
+          <div class="flow-connector">
+            <div class="flow-dot" style="background:#f87171"></div>
+          </div>
+          <div class="flow-body" style="border-left:3px solid #f87171">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+              <span class="rule-name">not-found</span>
+              <span class="rule-status" style="background:#f87171">Not found</span>
+            </div>
+            <div style="margin-top:6px;font-family:monospace;font-size:12px;color:#94a3b8">
+              trackerStatus = &quot;NotFound&quot; <span style="color:#475569">&amp;&amp;</span> closed = false
+            </div>
+            <span class="flow-arrow">&#8595; no match? continue...</span>
+          </div>
+        </div>
+
+        <div class="flow-node">
+          <div class="flow-connector">
+            <div class="flow-dot" style="background:#888"></div>
+          </div>
+          <div class="flow-body" style="border-left:3px solid #888">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+              <span class="rule-name">defined-benefit</span>
+              <span class="rule-status" style="background:#888">Defined Benefit</span>
+            </div>
+            <div style="margin-top:6px;font-family:monospace;font-size:12px;color:#94a3b8">
+              trackerStatus = &quot;DefinedBenefit&quot; <span style="color:#475569">&amp;&amp;</span> closed = false
+            </div>
+            <span class="flow-arrow">&#8595; no match? continue...</span>
+          </div>
+        </div>
+
+        <div class="flow-node">
+          <div class="flow-connector">
+            <div class="flow-dot" style="background:#888"></div>
+          </div>
+          <div class="flow-body" style="border-left:3px solid #888">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+              <span class="rule-name">not-transferring</span>
+              <span class="rule-status" style="background:#888">Not transferring</span>
+            </div>
+            <div style="margin-top:6px;font-family:monospace;font-size:12px;color:#94a3b8">
+              trackerStatus = &quot;NotTransferring&quot; <span style="color:#475569">&amp;&amp;</span> closed = false
+            </div>
+            <span class="flow-arrow">&#8595; no match? continue...</span>
+          </div>
+        </div>
+
         <div class="flow-node">
           <div class="flow-connector">
             <div class="flow-dot" style="background:#9ca3af"></div>
@@ -103,15 +167,15 @@
 
         <div class="flow-node">
           <div class="flow-connector">
-            <div class="flow-dot" style="background:#f87171"></div>
+            <div class="flow-dot" style="background:#9ca3af"></div>
           </div>
-          <div class="flow-body" style="border-left:3px solid #f87171">
+          <div class="flow-body" style="border-left:3px solid #9ca3af">
             <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-              <span class="rule-name">client-cancelled</span>
-              <span class="rule-status" style="background:#f87171">Client cancelled</span>
+              <span class="rule-name">hidden-rejected</span>
+              <span class="rule-status" style="background:#9ca3af">Hidden</span>
             </div>
             <div style="margin-top:6px;font-family:monospace;font-size:12px;color:#94a3b8">
-              status = &quot;Cancelled&quot; <span style="color:#475569">&amp;&amp;</span> closed = false
+              status = &quot;Rejected&quot;
             </div>
             <span class="flow-arrow">&#8595; no match? continue...</span>
           </div>
@@ -119,15 +183,15 @@
 
         <div class="flow-node">
           <div class="flow-connector">
-            <div class="flow-dot" style="background:#a78bfa"></div>
+            <div class="flow-dot" style="background:#888"></div>
           </div>
-          <div class="flow-body" style="border-left:3px solid #a78bfa">
+          <div class="flow-body" style="border-left:3px solid #888">
             <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-              <span class="rule-name">current-work</span>
-              <span class="rule-status" style="background:#a78bfa">Current work</span>
+              <span class="rule-name">client-cancelled</span>
+              <span class="rule-status" style="background:#888">Cancelled</span>
             </div>
             <div style="margin-top:6px;font-family:monospace;font-size:12px;color:#94a3b8">
-              status = &quot;ExistingEmployer&quot;
+              status = &quot;Cancelled&quot; <span style="color:#475569">&amp;&amp;</span> closed = false
             </div>
             <span class="flow-arrow">&#8595; no match? continue...</span>
           </div>
@@ -159,7 +223,7 @@
               <span class="rule-status" style="background:#60a5fa">Transferring</span>
             </div>
             <div style="margin-top:6px;font-family:monospace;font-size:12px;color:#94a3b8">
-              status = &quot;Submitted&quot;
+              reference != null <span style="color:#475569">&amp;&amp;</span> undefined undefined undefined
             </div>
             <span class="flow-arrow">&#8595; no match? continue...</span>
           </div>
@@ -175,7 +239,7 @@
               <span class="rule-status" style="background:#34d399">Found</span>
             </div>
             <div style="margin-top:6px;font-family:monospace;font-size:12px;color:#94a3b8">
-              cedingAccountReference != null <span style="color:#475569">&amp;&amp;</span> estimatedTransferValue != null <span style="color:#475569">&amp;&amp;</span> status = &quot;NotRequested&quot; <span style="color:#475569">&amp;&amp;</span> ANY of: <span style="color:#475569">&amp;&amp;</span>   cedingProviderName != null <span style="color:#475569">&amp;&amp;</span>   cedingProviderId != null
+              cedingAccountReference != null <span style="color:#475569">&amp;&amp;</span> estimatedTransferValue != null <span style="color:#475569">&amp;&amp;</span> status = &quot;NotRequested&quot; <span style="color:#475569">&amp;&amp;</span> undefined undefined undefined
             </div>
             <span class="flow-arrow">&#8595; no match? continue...</span>
           </div>
@@ -191,23 +255,7 @@
               <span class="rule-status" style="background:#fbbf24">Potentially found</span>
             </div>
             <div style="margin-top:6px;font-family:monospace;font-size:12px;color:#94a3b8">
-              hasIncompleteActions = true <span style="color:#475569">&amp;&amp;</span> cedingAccountReference = null <span style="color:#475569">&amp;&amp;</span> ANY of: <span style="color:#475569">&amp;&amp;</span>   employerName != null <span style="color:#475569">&amp;&amp;</span>   cedingProviderName != null <span style="color:#475569">&amp;&amp;</span>   cedingProviderId != null
-            </div>
-            <span class="flow-arrow">&#8595; no match? continue...</span>
-          </div>
-        </div>
-
-        <div class="flow-node">
-          <div class="flow-connector">
-            <div class="flow-dot" style="background:#f87171"></div>
-          </div>
-          <div class="flow-body" style="border-left:3px solid #f87171">
-            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-              <span class="rule-name">not-found</span>
-              <span class="rule-status" style="background:#f87171">Not found</span>
-            </div>
-            <div style="margin-top:6px;font-family:monospace;font-size:12px;color:#94a3b8">
-              status = &quot;NotFound&quot;
+              hasIncompleteActions = true <span style="color:#475569">&amp;&amp;</span> cedingAccountReference = null <span style="color:#475569">&amp;&amp;</span> undefined undefined undefined
             </div>
             <span class="flow-arrow">&#8595; no match? continue...</span>
           </div>
@@ -240,11 +288,65 @@
 <button class="filter-btn" style="--btn-colour:#60a5fa" onclick="filterRules('Transferring')">Transferring</button>
 <button class="filter-btn" style="--btn-colour:#34d399" onclick="filterRules('Completed')">Completed</button>
 <button class="filter-btn" style="--btn-colour:#a78bfa" onclick="filterRules('Current work')">Current work</button>
+<button class="filter-btn" style="--btn-colour:#888" onclick="filterRules('Defined Benefit')">Defined Benefit</button>
+<button class="filter-btn" style="--btn-colour:#888" onclick="filterRules('Not transferring')">Not transferring</button>
 <button class="filter-btn" style="--btn-colour:#f87171" onclick="filterRules('Not found')">Not found</button>
-<button class="filter-btn" style="--btn-colour:#f87171" onclick="filterRules('Client cancelled')">Client cancelled</button>
+<button class="filter-btn" style="--btn-colour:#888" onclick="filterRules('Cancelled')">Cancelled</button>
 <button class="filter-btn" style="--btn-colour:#9ca3af" onclick="filterRules('Hidden')">Hidden</button>
     </div>
     <div class="rules-grid">
+      <div class="rule-card" data-status="Current work" style="border-left: 5px solid #a78bfa">
+        <div class="rule-header">
+          <span class="rule-name">current-work</span>
+          <span class="rule-priority">Priority: 110</span>
+          <span class="rule-status" style="background: #a78bfa">Current work</span>
+        </div>
+        <div class="rule-description">Beach-owned: pension is with current employer. Wins over WK terminal statuses (Completed/Cancelled/Rejected) but not over closed.</div>
+        <div class="conditions-block">
+          <div class="conditions-label">ALL conditions:</div>
+          <div class="condition">trackerStatus = &quot;CurrentEmployerPension&quot;</div><div class="condition">closed = false</div>
+        </div>
+      </div>
+
+      <div class="rule-card" data-status="Not found" style="border-left: 5px solid #f87171">
+        <div class="rule-header">
+          <span class="rule-name">not-found</span>
+          <span class="rule-priority">Priority: 110</span>
+          <span class="rule-status" style="background: #f87171">Not found</span>
+        </div>
+        <div class="rule-description">Beach-owned: pension search completed but not found. Wins over WK terminal statuses but not over closed.</div>
+        <div class="conditions-block">
+          <div class="conditions-label">ALL conditions:</div>
+          <div class="condition">trackerStatus = &quot;NotFound&quot;</div><div class="condition">closed = false</div>
+        </div>
+      </div>
+
+      <div class="rule-card" data-status="Defined Benefit" style="border-left: 5px solid #888">
+        <div class="rule-header">
+          <span class="rule-name">defined-benefit</span>
+          <span class="rule-priority">Priority: 110</span>
+          <span class="rule-status" style="background: #888">Defined Benefit</span>
+        </div>
+        <div class="rule-description">Beach-owned: pension is a defined-benefit scheme and not being transferred. Wins over WK terminal statuses but not over closed.</div>
+        <div class="conditions-block">
+          <div class="conditions-label">ALL conditions:</div>
+          <div class="condition">trackerStatus = &quot;DefinedBenefit&quot;</div><div class="condition">closed = false</div>
+        </div>
+      </div>
+
+      <div class="rule-card" data-status="Not transferring" style="border-left: 5px solid #888">
+        <div class="rule-header">
+          <span class="rule-name">not-transferring</span>
+          <span class="rule-priority">Priority: 110</span>
+          <span class="rule-status" style="background: #888">Not transferring</span>
+        </div>
+        <div class="rule-description">Beach-owned: pension was found but the client has decided not to transfer it. Wins over WK terminal statuses but not over closed.</div>
+        <div class="conditions-block">
+          <div class="conditions-label">ALL conditions:</div>
+          <div class="condition">trackerStatus = &quot;NotTransferring&quot;</div><div class="condition">closed = false</div>
+        </div>
+      </div>
+
       <div class="rule-card" data-status="Hidden" style="border-left: 5px solid #9ca3af">
         <div class="rule-header">
           <span class="rule-name">hidden-closed</span>
@@ -258,29 +360,29 @@
         </div>
       </div>
 
-      <div class="rule-card" data-status="Client cancelled" style="border-left: 5px solid #f87171">
+      <div class="rule-card" data-status="Hidden" style="border-left: 5px solid #9ca3af">
+        <div class="rule-header">
+          <span class="rule-name">hidden-rejected</span>
+          <span class="rule-priority">Priority: 100</span>
+          <span class="rule-status" style="background: #9ca3af">Hidden</span>
+        </div>
+        <div class="rule-description">Transfer was rejected - hidden from clients</div>
+        <div class="conditions-block">
+          <div class="conditions-label">ALL conditions:</div>
+          <div class="condition">status = &quot;Rejected&quot;</div>
+        </div>
+      </div>
+
+      <div class="rule-card" data-status="Cancelled" style="border-left: 5px solid #888">
         <div class="rule-header">
           <span class="rule-name">client-cancelled</span>
           <span class="rule-priority">Priority: 50</span>
-          <span class="rule-status" style="background: #f87171">Client cancelled</span>
+          <span class="rule-status" style="background: #888">Cancelled</span>
         </div>
         <div class="rule-description">Client has cancelled the transfer and it is not yet closed</div>
         <div class="conditions-block">
           <div class="conditions-label">ALL conditions:</div>
           <div class="condition">status = &quot;Cancelled&quot;</div><div class="condition">closed = false</div>
-        </div>
-      </div>
-
-      <div class="rule-card" data-status="Current work" style="border-left: 5px solid #a78bfa">
-        <div class="rule-header">
-          <span class="rule-name">current-work</span>
-          <span class="rule-priority">Priority: 40</span>
-          <span class="rule-status" style="background: #a78bfa">Current work</span>
-        </div>
-        <div class="rule-description">Pension is with current employer and not yet submitted or completed</div>
-        <div class="conditions-block">
-          <div class="conditions-label">ALL conditions:</div>
-          <div class="condition">status = &quot;ExistingEmployer&quot;</div>
         </div>
       </div>
 
@@ -303,10 +405,10 @@
           <span class="rule-priority">Priority: 30</span>
           <span class="rule-status" style="background: #60a5fa">Transferring</span>
         </div>
-        <div class="rule-description">Transfer has been submitted to the provider</div>
+        <div class="rule-description">Transfer has a provider reference and status is Pending, Submitted, Accepted, or Transferring</div>
         <div class="conditions-block">
           <div class="conditions-label">ALL conditions:</div>
-          <div class="condition">status = &quot;Submitted&quot;</div>
+          <div class="condition">reference != null</div><div class="condition">undefined undefined undefined</div>
         </div>
       </div>
 
@@ -319,7 +421,7 @@
         <div class="rule-description">Provider identified (name or ID), policy number known, and status is NotRequested</div>
         <div class="conditions-block">
           <div class="conditions-label">ALL conditions:</div>
-          <div class="condition">cedingAccountReference != null</div><div class="condition">estimatedTransferValue != null</div><div class="condition">status = &quot;NotRequested&quot;</div><div class="condition">ANY of:</div><div class="condition">  cedingProviderName != null</div><div class="condition">  cedingProviderId != null</div>
+          <div class="condition">cedingAccountReference != null</div><div class="condition">estimatedTransferValue != null</div><div class="condition">status = &quot;NotRequested&quot;</div><div class="condition">undefined undefined undefined</div>
         </div>
       </div>
 
@@ -332,20 +434,7 @@
         <div class="rule-description">Has some identifying info (employer, provider name, or provider ID), at least one incomplete action, and no account reference yet</div>
         <div class="conditions-block">
           <div class="conditions-label">ALL conditions:</div>
-          <div class="condition">hasIncompleteActions = true</div><div class="condition">cedingAccountReference = null</div><div class="condition">ANY of:</div><div class="condition">  employerName != null</div><div class="condition">  cedingProviderName != null</div><div class="condition">  cedingProviderId != null</div>
-        </div>
-      </div>
-
-      <div class="rule-card" data-status="Not found" style="border-left: 5px solid #f87171">
-        <div class="rule-header">
-          <span class="rule-name">not-found</span>
-          <span class="rule-priority">Priority: 15</span>
-          <span class="rule-status" style="background: #f87171">Not found</span>
-        </div>
-        <div class="rule-description">Pension search completed but not found</div>
-        <div class="conditions-block">
-          <div class="conditions-label">ALL conditions:</div>
-          <div class="condition">status = &quot;NotFound&quot;</div>
+          <div class="condition">hasIncompleteActions = true</div><div class="condition">cedingAccountReference = null</div><div class="condition">undefined undefined undefined</div>
         </div>
       </div>
 
@@ -368,9 +457,9 @@
       <thead><tr><th>Status</th><th>Count</th><th>%</th><th>Distribution</th></tr></thead>
       <tbody><tr>
         <td><span class="status-dot" style="background:#FF6B35"></span>Searching</td>
-        <td>1</td>
-        <td>8.3%</td>
-        <td><div class="bar" style="width:8.3%;background:#FF6B35"></div></td>
+        <td>0</td>
+        <td>0.0%</td>
+        <td><div class="bar" style="width:0.0%;background:#FF6B35"></div></td>
       </tr>
 <tr>
         <td><span class="status-dot" style="background:#fbbf24"></span>Potentially found</td>
@@ -386,37 +475,49 @@
       </tr>
 <tr>
         <td><span class="status-dot" style="background:#60a5fa"></span>Transferring</td>
-        <td>1</td>
-        <td>8.3%</td>
-        <td><div class="bar" style="width:8.3%;background:#60a5fa"></div></td>
+        <td>0</td>
+        <td>0.0%</td>
+        <td><div class="bar" style="width:0.0%;background:#60a5fa"></div></td>
       </tr>
 <tr>
         <td><span class="status-dot" style="background:#34d399"></span>Completed</td>
-        <td>1</td>
-        <td>8.3%</td>
-        <td><div class="bar" style="width:8.3%;background:#34d399"></div></td>
+        <td>0</td>
+        <td>0.0%</td>
+        <td><div class="bar" style="width:0.0%;background:#34d399"></div></td>
       </tr>
 <tr>
         <td><span class="status-dot" style="background:#a78bfa"></span>Current work</td>
-        <td>1</td>
-        <td>8.3%</td>
-        <td><div class="bar" style="width:8.3%;background:#a78bfa"></div></td>
+        <td>8</td>
+        <td>12.5%</td>
+        <td><div class="bar" style="width:12.5%;background:#a78bfa"></div></td>
+      </tr>
+<tr>
+        <td><span class="status-dot" style="background:#888"></span>Defined Benefit</td>
+        <td>8</td>
+        <td>12.5%</td>
+        <td><div class="bar" style="width:12.5%;background:#888"></div></td>
+      </tr>
+<tr>
+        <td><span class="status-dot" style="background:#888"></span>Not transferring</td>
+        <td>8</td>
+        <td>12.5%</td>
+        <td><div class="bar" style="width:12.5%;background:#888"></div></td>
       </tr>
 <tr>
         <td><span class="status-dot" style="background:#f87171"></span>Not found</td>
-        <td>1</td>
-        <td>8.3%</td>
-        <td><div class="bar" style="width:8.3%;background:#f87171"></div></td>
+        <td>8</td>
+        <td>12.5%</td>
+        <td><div class="bar" style="width:12.5%;background:#f87171"></div></td>
       </tr>
 <tr>
-        <td><span class="status-dot" style="background:#f87171"></span>Client cancelled</td>
-        <td>1</td>
-        <td>8.3%</td>
-        <td><div class="bar" style="width:8.3%;background:#f87171"></div></td>
+        <td><span class="status-dot" style="background:#888"></span>Cancelled</td>
+        <td>0</td>
+        <td>0.0%</td>
+        <td><div class="bar" style="width:0.0%;background:#888"></div></td>
       </tr>
 <tr>
         <td><span class="status-dot" style="background:#9ca3af"></span>Hidden</td>
-        <td>6</td>
+        <td>32</td>
         <td>50.0%</td>
         <td><div class="bar" style="width:50.0%;background:#9ca3af"></div></td>
       </tr>
@@ -430,60 +531,149 @@
   </div>
 
   <div class="tab-content" id="tab-issues">
-    <div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;closed&quot;:true,&quot;id&quot;:1}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
-<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;ExistingEmployer&quot;,&quot;closed&quot;:true,&quot;id&quot;:3}. Matches: Hidden (hidden-closed, p=100), Current work (current-work, p=40), Searching (searching-default, p=1). Winner by priority: Hidden</div>
-<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;ExistingEmployer&quot;,&quot;closed&quot;:false,&quot;id&quot;:4}. Matches: Current work (current-work, p=40), Searching (searching-default, p=1). Winner by priority: Current work</div>
-<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotFound&quot;,&quot;closed&quot;:true,&quot;id&quot;:5}. Matches: Hidden (hidden-closed, p=100), Not found (not-found, p=15), Searching (searching-default, p=1). Winner by priority: Hidden</div>
-<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotFound&quot;,&quot;closed&quot;:false,&quot;id&quot;:6}. Matches: Not found (not-found, p=15), Searching (searching-default, p=1). Winner by priority: Not found</div>
-<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;closed&quot;:true,&quot;id&quot;:7}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
-<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;closed&quot;:false,&quot;id&quot;:8}. Matches: Client cancelled (client-cancelled, p=50), Searching (searching-default, p=1). Winner by priority: Client cancelled</div>
-<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Completed&quot;,&quot;closed&quot;:true,&quot;id&quot;:9}. Matches: Hidden (hidden-closed, p=100), Completed (completed, p=35), Searching (searching-default, p=1). Winner by priority: Hidden</div>
-<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Completed&quot;,&quot;closed&quot;:false,&quot;id&quot;:10}. Matches: Completed (completed, p=35), Searching (searching-default, p=1). Winner by priority: Completed</div>
-<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Submitted&quot;,&quot;closed&quot;:true,&quot;id&quot;:11}. Matches: Hidden (hidden-closed, p=100), Transferring (transferring, p=30), Searching (searching-default, p=1). Winner by priority: Hidden</div>
-<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Submitted&quot;,&quot;closed&quot;:false,&quot;id&quot;:12}. Matches: Transferring (transferring, p=30), Searching (searching-default, p=1). Winner by priority: Transferring</div>
+    <div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:1}. Matches: Current work (current-work, p=110), Searching (searching-default, p=1). Winner by priority: Current work</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:2}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:3}. Matches: Not found (not-found, p=110), Searching (searching-default, p=1). Winner by priority: Not found</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:4}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:5}. Matches: Defined Benefit (defined-benefit, p=110), Searching (searching-default, p=1). Winner by priority: Defined Benefit</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:6}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:7}. Matches: Not transferring (not-transferring, p=110), Searching (searching-default, p=1). Winner by priority: Not transferring</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:8}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Rejected&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:9}. Matches: Current work (current-work, p=110), Hidden (hidden-rejected, p=100), Searching (searching-default, p=1). Winner by priority: Current work</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Rejected&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:10}. Matches: Hidden (hidden-closed, p=100), Hidden (hidden-rejected, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Rejected&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:11}. Matches: Not found (not-found, p=110), Hidden (hidden-rejected, p=100), Searching (searching-default, p=1). Winner by priority: Not found</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Rejected&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:12}. Matches: Hidden (hidden-closed, p=100), Hidden (hidden-rejected, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Rejected&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:13}. Matches: Defined Benefit (defined-benefit, p=110), Hidden (hidden-rejected, p=100), Searching (searching-default, p=1). Winner by priority: Defined Benefit</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Rejected&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:14}. Matches: Hidden (hidden-closed, p=100), Hidden (hidden-rejected, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Rejected&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:15}. Matches: Not transferring (not-transferring, p=110), Hidden (hidden-rejected, p=100), Searching (searching-default, p=1). Winner by priority: Not transferring</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Rejected&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:16}. Matches: Hidden (hidden-closed, p=100), Hidden (hidden-rejected, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:17}. Matches: Current work (current-work, p=110), Cancelled (client-cancelled, p=50), Searching (searching-default, p=1). Winner by priority: Current work</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:18}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:19}. Matches: Not found (not-found, p=110), Cancelled (client-cancelled, p=50), Searching (searching-default, p=1). Winner by priority: Not found</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:20}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:21}. Matches: Defined Benefit (defined-benefit, p=110), Cancelled (client-cancelled, p=50), Searching (searching-default, p=1). Winner by priority: Defined Benefit</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:22}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:23}. Matches: Not transferring (not-transferring, p=110), Cancelled (client-cancelled, p=50), Searching (searching-default, p=1). Winner by priority: Not transferring</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:24}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Completed&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:25}. Matches: Current work (current-work, p=110), Completed (completed, p=35), Searching (searching-default, p=1). Winner by priority: Current work</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Completed&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:26}. Matches: Hidden (hidden-closed, p=100), Completed (completed, p=35), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Completed&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:27}. Matches: Not found (not-found, p=110), Completed (completed, p=35), Searching (searching-default, p=1). Winner by priority: Not found</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Completed&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:28}. Matches: Hidden (hidden-closed, p=100), Completed (completed, p=35), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Completed&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:29}. Matches: Defined Benefit (defined-benefit, p=110), Completed (completed, p=35), Searching (searching-default, p=1). Winner by priority: Defined Benefit</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Completed&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:30}. Matches: Hidden (hidden-closed, p=100), Completed (completed, p=35), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Completed&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:31}. Matches: Not transferring (not-transferring, p=110), Completed (completed, p=35), Searching (searching-default, p=1). Winner by priority: Not transferring</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Completed&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:32}. Matches: Hidden (hidden-closed, p=100), Completed (completed, p=35), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Pending&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:33}. Matches: Current work (current-work, p=110), Searching (searching-default, p=1). Winner by priority: Current work</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Pending&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:34}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Pending&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:35}. Matches: Not found (not-found, p=110), Searching (searching-default, p=1). Winner by priority: Not found</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Pending&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:36}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Pending&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:37}. Matches: Defined Benefit (defined-benefit, p=110), Searching (searching-default, p=1). Winner by priority: Defined Benefit</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Pending&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:38}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Pending&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:39}. Matches: Not transferring (not-transferring, p=110), Searching (searching-default, p=1). Winner by priority: Not transferring</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Pending&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:40}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Submitted&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:41}. Matches: Current work (current-work, p=110), Searching (searching-default, p=1). Winner by priority: Current work</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Submitted&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:42}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Submitted&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:43}. Matches: Not found (not-found, p=110), Searching (searching-default, p=1). Winner by priority: Not found</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Submitted&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:44}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Submitted&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:45}. Matches: Defined Benefit (defined-benefit, p=110), Searching (searching-default, p=1). Winner by priority: Defined Benefit</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Submitted&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:46}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Submitted&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:47}. Matches: Not transferring (not-transferring, p=110), Searching (searching-default, p=1). Winner by priority: Not transferring</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Submitted&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:48}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Accepted&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:49}. Matches: Current work (current-work, p=110), Searching (searching-default, p=1). Winner by priority: Current work</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Accepted&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:50}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Accepted&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:51}. Matches: Not found (not-found, p=110), Searching (searching-default, p=1). Winner by priority: Not found</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Accepted&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:52}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Accepted&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:53}. Matches: Defined Benefit (defined-benefit, p=110), Searching (searching-default, p=1). Winner by priority: Defined Benefit</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Accepted&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:54}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Accepted&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:55}. Matches: Not transferring (not-transferring, p=110), Searching (searching-default, p=1). Winner by priority: Not transferring</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Accepted&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:56}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Transferring&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:57}. Matches: Current work (current-work, p=110), Searching (searching-default, p=1). Winner by priority: Current work</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Transferring&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:58}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Transferring&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:59}. Matches: Not found (not-found, p=110), Searching (searching-default, p=1). Winner by priority: Not found</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Transferring&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:60}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Transferring&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:61}. Matches: Defined Benefit (defined-benefit, p=110), Searching (searching-default, p=1). Winner by priority: Defined Benefit</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Transferring&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:62}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Transferring&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:63}. Matches: Not transferring (not-transferring, p=110), Searching (searching-default, p=1). Winner by priority: Not transferring</div>
+<div class="issue issue-conflict"><span class="issue-type">CONFLICT</span> Multiple statuses match for test case: {&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Transferring&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:64}. Matches: Hidden (hidden-closed, p=100), Searching (searching-default, p=1). Winner by priority: Hidden</div>
     <h2>Conflict Details</h2><div class="conflict-detail">
-        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;closed&quot;:true,&quot;id&quot;:1}</code></div>
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:1}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#a78bfa">Current work (current-work, p=110)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:2}</code></div>
         <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
       </div>
 <div class="conflict-detail">
-        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;ExistingEmployer&quot;,&quot;closed&quot;:true,&quot;id&quot;:3}</code></div>
-        <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#a78bfa">Current work (current-work, p=40)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:3}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#f87171">Not found (not-found, p=110)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
       </div>
 <div class="conflict-detail">
-        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;ExistingEmployer&quot;,&quot;closed&quot;:false,&quot;id&quot;:4}</code></div>
-        <div class="conflict-matches"><span class="match-tag" style="background:#a78bfa">Current work (current-work, p=40)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
-      </div>
-<div class="conflict-detail">
-        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotFound&quot;,&quot;closed&quot;:true,&quot;id&quot;:5}</code></div>
-        <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#f87171">Not found (not-found, p=15)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
-      </div>
-<div class="conflict-detail">
-        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotFound&quot;,&quot;closed&quot;:false,&quot;id&quot;:6}</code></div>
-        <div class="conflict-matches"><span class="match-tag" style="background:#f87171">Not found (not-found, p=15)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
-      </div>
-<div class="conflict-detail">
-        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;closed&quot;:true,&quot;id&quot;:7}</code></div>
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:4}</code></div>
         <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
       </div>
 <div class="conflict-detail">
-        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;closed&quot;:false,&quot;id&quot;:8}</code></div>
-        <div class="conflict-matches"><span class="match-tag" style="background:#f87171">Client cancelled (client-cancelled, p=50)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:5}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#888">Defined Benefit (defined-benefit, p=110)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
       </div>
 <div class="conflict-detail">
-        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Completed&quot;,&quot;closed&quot;:true,&quot;id&quot;:9}</code></div>
-        <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#34d399">Completed (completed, p=35)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:6}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
       </div>
 <div class="conflict-detail">
-        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Completed&quot;,&quot;closed&quot;:false,&quot;id&quot;:10}</code></div>
-        <div class="conflict-matches"><span class="match-tag" style="background:#34d399">Completed (completed, p=35)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:7}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#888">Not transferring (not-transferring, p=110)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
       </div>
 <div class="conflict-detail">
-        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Submitted&quot;,&quot;closed&quot;:true,&quot;id&quot;:11}</code></div>
-        <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#60a5fa">Transferring (transferring, p=30)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;NotRequested&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:8}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
       </div>
 <div class="conflict-detail">
-        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Submitted&quot;,&quot;closed&quot;:false,&quot;id&quot;:12}</code></div>
-        <div class="conflict-matches"><span class="match-tag" style="background:#60a5fa">Transferring (transferring, p=30)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Rejected&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:9}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#a78bfa">Current work (current-work, p=110)</span> <span class="match-tag" style="background:#9ca3af">Hidden (hidden-rejected, p=100)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Rejected&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:10}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#9ca3af">Hidden (hidden-rejected, p=100)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Rejected&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:11}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#f87171">Not found (not-found, p=110)</span> <span class="match-tag" style="background:#9ca3af">Hidden (hidden-rejected, p=100)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Rejected&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:12}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#9ca3af">Hidden (hidden-rejected, p=100)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Rejected&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:13}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#888">Defined Benefit (defined-benefit, p=110)</span> <span class="match-tag" style="background:#9ca3af">Hidden (hidden-rejected, p=100)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Rejected&quot;,&quot;trackerStatus&quot;:&quot;DefinedBenefit&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:14}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#9ca3af">Hidden (hidden-rejected, p=100)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Rejected&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:15}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#888">Not transferring (not-transferring, p=110)</span> <span class="match-tag" style="background:#9ca3af">Hidden (hidden-rejected, p=100)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Rejected&quot;,&quot;trackerStatus&quot;:&quot;NotTransferring&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:16}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#9ca3af">Hidden (hidden-rejected, p=100)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:17}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#a78bfa">Current work (current-work, p=110)</span> <span class="match-tag" style="background:#888">Cancelled (client-cancelled, p=50)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;trackerStatus&quot;:&quot;CurrentEmployerPension&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:18}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:false,&quot;reference&quot;:null,&quot;id&quot;:19}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#f87171">Not found (not-found, p=110)</span> <span class="match-tag" style="background:#888">Cancelled (client-cancelled, p=50)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
+      </div>
+<div class="conflict-detail">
+        <div class="conflict-fact"><strong>Fact:</strong> <code>{&quot;hasIncompleteActions&quot;:true,&quot;cedingAccountReference&quot;:null,&quot;employerName&quot;:null,&quot;cedingProviderName&quot;:null,&quot;cedingProviderId&quot;:null,&quot;estimatedTransferValue&quot;:null,&quot;status&quot;:&quot;Cancelled&quot;,&quot;trackerStatus&quot;:&quot;NotFound&quot;,&quot;closed&quot;:true,&quot;reference&quot;:null,&quot;id&quot;:20}</code></div>
+        <div class="conflict-matches"><span class="match-tag" style="background:#9ca3af">Hidden (hidden-closed, p=100)</span> <span class="match-tag" style="background:#FF6B35">Searching (searching-default, p=1)</span></div>
       </div>
     
   </div>

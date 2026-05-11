@@ -7,6 +7,7 @@ export const DISPLAY_STATUSES = [
   'Completed',
   'Current work',
   'Defined Benefit',
+  'Not transferring',
   'Not found',
   'Cancelled',
   'Hidden',
