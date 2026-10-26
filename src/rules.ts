@@ -18,11 +18,10 @@ export const transferInRules: RuleDefinition[] = [
     displayStatus: 'Potentially found',
     priority: 20,
     description:
-      'Has some identifying info (employer, provider name, or provider ID), at least one incomplete action, and no account reference yet',
+      'Has some identifying info (employer, provider name, or provider ID) and at least one incomplete action. Found wins once the policy number and value are both known',
     conditions: {
       all: [
         { fact: 'hasIncompleteActions', operator: 'equal', value: true },
-        { fact: 'cedingAccountReference', operator: 'equal', value: null },
         {
           any: [
             { fact: 'employerName', operator: 'notEqual', value: null },
